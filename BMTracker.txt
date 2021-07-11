@@ -1,0 +1,8 @@
+## Title: BMTracker
+## APIVersion: 100035
+## SavedVariables: BMTrackerSavedVars
+## DependsOn: LibAddonMenu-2.0>=28
+
+BMTracker.lua
+BMTrackerMenu.lua
+Panel.xml

@@ -1,0 +1,22 @@
+<GuiXml>
+	<Controls>
+		<TopLevelControl name="BMTrackerPanel" mouseEnabled="true" movable="true" hidden="false" clampedToScreen="true" >
+			<Dimensions x="100" y="50" />
+			<Anchor point="TOPLEFT" relativeTo="GuiRoot" relativePoint="TOPLEFT" />
+			<Controls>
+				<Label name="$(parent)_Average" text="0.0" color="00FF00" inheritAlpha="true" font="$(CHAT_FONT)|$(KB_48)|soft-shadow-thick" verticalAlignment="TOP" horizontalAlignment="RIGHT" >
+					<AnchorFill />
+				</Label>
+				<Label name="$(parent)_Bonus" text="0" color="FFAA00" inheritAlpha="true" font="$(CHAT_FONT)|$(KB_36)|soft-shadow-thick" verticalAlignment="TOP" horizontalAlignment="LEFT" >
+					<Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeTo="$(parent)_Average" offsetX="10" offsetY="-10" />
+				</Label>
+				<Label name="$(parent)_Mag" text="0" color="00FFFF" inheritAlpha="true" font="$(CHAT_FONT)|$(KB_36)|soft-shadow-thick" verticalAlignment="TOP" horizontalAlignment="LEFT" >
+					<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$(parent)_Bonus" offsetY="-10" />
+				</Label>
+			</Controls>
+            <OnMoveStop>
+				BMTracker.SavePos()
+			</OnMoveStop>
+		</TopLevelControl>
+	</Controls>
+</GuiXml>
