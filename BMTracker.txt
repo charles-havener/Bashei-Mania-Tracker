@@ -1,5 +1,6 @@
 ## Title: BMTracker
 ## APIVersion: 100035
+## Author: the_dragonwarrior
 ## SavedVariables: BMTrackerSavedVars
 ## DependsOn: LibAddonMenu-2.0>=28
 
