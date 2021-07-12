@@ -6,7 +6,8 @@ function BMTracker.SetupMenu()
     local panelData = {
         type = "panel",
         name = BMTracker.name,
-        displayName = "|cFFFF00B|rahsei's |c008000M|rania |cFF0000T|rracker",
+        displayName = "Bahsei's Mania Tracker",
+        author = "@the_dragonwarrior",
         version = ""..BMTracker.version,
     }
 
@@ -65,7 +66,7 @@ function BMTracker.SetupMenu()
         {
             type = "colorpicker",
             name = "Average Bonus Colour",
-            tooltip = "Color of the average bashei damage bonus during a combat encounter",
+            tooltip = "Colour of the average bashei damage bonus during a combat encounter",
             getFunc = function() return unpack(BMTracker.savedVars.colours.average) end,
             setFunc = function(r,g,b,a)
                 BMTracker.savedVars.colours.average = {r,g,b,a}
@@ -75,7 +76,7 @@ function BMTracker.SetupMenu()
         {
             type = "colorpicker",
             name = "Bonus Colour",
-            tooltip = "Color of the current bashei damage bonus",
+            tooltip = "Colour of the current bashei damage bonus",
             getFunc = function() return unpack(BMTracker.savedVars.colours.bonus) end,
             setFunc = function(r,g,b,a)
                 BMTracker.savedVars.colours.bonus = {r,g,b,a}
@@ -85,7 +86,7 @@ function BMTracker.SetupMenu()
         {
             type = "colorpicker",
             name = "Mag % Colour",
-            tooltip = "Color of current magicka percentage value",
+            tooltip = "Colour of current magicka percentage value",
             getFunc = function() return unpack(BMTracker.savedVars.colours.mag) end,
             setFunc = function(r,g,b,a)
                 BMTracker.savedVars.colours.mag = {r,g,b,a}
