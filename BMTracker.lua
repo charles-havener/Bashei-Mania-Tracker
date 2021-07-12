@@ -3,10 +3,9 @@ BMTracker = {
     version = "1.0.0",
     combatTickCount = 0,
     combatBonusTotal = 0,
-    BMSet = "|H1:item:174450:364:50:0:0:0:18:0:0:0:0:0:0:0:2049:122:0:1:0:7000:0|h|h", -- perfected
-    -- TODO: add non perfected as well
-    -- Can mix perfected and nonperfect so need to check sum of the two
-    -- if mixed, 5th piece bonus of perfected does not show so will probably need to pull tooltip value from non perfected
+    BMSet = "|H1:item:173634:363:50:0:0:0:0:0:0:0:0:0:0:0:1:122:0:1:0:10000:0|h|h", -- non perfected
+    -- only need non perfected now that p and non p can combine. In game perfected counts towards non perfected count
+    -- can pull bonus % from non p tooltip since it's the same for both p and non p
 
     defaults = {
         ["posX"] = 500,
@@ -48,7 +47,7 @@ function BMTracker.BMCheck()
     return true
 end
 
--- Hide panel when menus are open or if gear check fails
+-- Hide panel when menus are open or gear check fails
 function BMTracker.HideFrame()
     if BMTracker.BMCheck() then
         BMTrackerPanel:SetHidden(IsReticleHidden())
@@ -59,16 +58,19 @@ end
 
 -- Updates panel each tick
 function BMTracker.Tick()
-
     -- Mag %
     local m, mmax = GetUnitPower('player', POWERTYPE_MAGICKA)
-    local p = math.floor(100*m/mmax+0.5)
+    local p = math.floor(100*m/mmax)
     BMTrackerPanel_Mag:SetText(string.format("%d",p))
 
     -- Bonus %
-    --TODO: get bonus % from item 5 piece description
-    --local _,b = GetItemLinkSetBonusInfo(BMTracker.BMSet, true, 5)
-    local b = 14-math.floor(m/mmax * 14) -- janky but mostly accurate formula
+    local _,b = GetItemLinkSetBonusInfo(BMTracker.BMSet, true, 4) --4th line bonus on non perf, 5th on perf
+    b = string.sub(b, -5, -4) --either fX or XX, where X -> % bonus
+    if string.sub(b, -2, -2) == "f" then
+        b = tonumber(string.sub(b,-1,-1))
+    else
+        b = tonumber(b)
+    end
     BMTrackerPanel_Bonus:SetText(string.format("%d", b))
 
     -- Average Bonus
