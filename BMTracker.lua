@@ -63,20 +63,24 @@ function BMTracker.Tick()
     local p = math.floor(100*m/mmax)
     BMTrackerPanel_Mag:SetText(string.format("%d",p))
 
-    -- Bonus %
-    local _,b = GetItemLinkSetBonusInfo(BMTracker.BMSet, true, 4) --4th line bonus on non perf, 5th on perf
-    b = string.sub(b, -5, -4) --either fX or XX, where X -> % bonus
-    if string.sub(b, -2, -2) == "f" then
-        b = tonumber(string.sub(b,-1,-1))
-    else
-        b = tonumber(b)
+    -- Bonus % (will be 0 when dead, lowering the average until resurrected)
+    bonus = 0
+    if not IsUnitDead('player') then
+        local _,b = GetItemLinkSetBonusInfo(BMTracker.BMSet, true, 4) --4th line bonus on non perf, 5th on perf
+        b = string.sub(b, -5, -4) --either fX or XX, where X -> % bonus
+        if string.sub(b, -2, -2) == "f" then
+            b = tonumber(string.sub(b,-1,-1))
+        else
+            b = tonumber(b)
+        end
+        bonus = b
     end
-    BMTrackerPanel_Bonus:SetText(string.format("%d", b))
+    BMTrackerPanel_Bonus:SetText(string.format("%d", bonus))
 
     -- Average Bonus
     if BMTracker.inCombat then
         BMTracker.combatTickCount = BMTracker.combatTickCount + 1
-        BMTracker.combatBonusTotal = BMTracker.combatBonusTotal + b
+        BMTracker.combatBonusTotal = BMTracker.combatBonusTotal + bonus
         local a = BMTracker.combatBonusTotal/BMTracker.combatTickCount
         BMTrackerPanel_Average:SetText(string.format("%.1f", a))
     end
